@@ -1,5 +1,3 @@
-# -*- coding: utf-8  -*-
-
 import asyncio, discord
 
 client = discord.Client()
