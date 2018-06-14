@@ -36,4 +36,4 @@ def on_voice_state_update(before,after):
 def on_ready():  
     print("Ready")
 
-client.run(TOKEN)
+client.run("NDU2NTEzOTM2MDQxNDQzMzM5.DgR5pQ.LzP_RCdCfF1eY7JpYX8W5BFJwqo")
