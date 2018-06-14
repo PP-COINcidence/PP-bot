@@ -36,4 +36,4 @@ def on_voice_state_update(before,after):
 def on_ready():  
     print("Ready")
 
-client.run("BOT_TOKEN")
+client.run(BOT_TOKEN)
