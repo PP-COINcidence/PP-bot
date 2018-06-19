@@ -29,7 +29,7 @@ def on_reaction_add(reaction,user):
                     an="**"+str(user)+"** est disponible pour le prochain CCFN ! :smiley:"
                     yield from client.send_message(discord.Object(id='456515271964753930'),an)
                     return
-        if not "CCFN" in reaction.message.content:
+        if not "CCFN" or "ccfn" in reaction.message.content:
             if "[P²]#4011" not in str(user):
                 if str(reaction.emoji) == "✅":
                     an="**"+str(user)+"** est disponible pour le prochain event ! :smiley:"
