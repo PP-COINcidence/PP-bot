@@ -40,7 +40,7 @@ def on_reaction_add(reaction,user):
 @asyncio.coroutine
 def on_voice_state_update(before,after):
     if before.voice_channel != after.voice_channel:
-        if after.voice_channel == '456057790579081220':
+        if after.voice_channel.id == '456057790579081220':
             yield from client.send_message(discord.Object(id='456515271964753930'),"Besoin d'un @Admin")
  
 @client.event
