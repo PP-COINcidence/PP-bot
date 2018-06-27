@@ -10,47 +10,121 @@ client = discord.Client()
 def on_message(message):
     if message.author == client.user:
         return
-    if message.channel.id == '456515271964753930':
+    if message.channel.id == '441518062575943680':
         if message.content.startswith("!dispo"):
             yield from client.delete_message(message)
-            message = yield from client.send_message(discord.Object(id='456515389741072386'), "**"+str(message.content)[6:]+"**")
+            message = yield from client.send_message(discord.Object(id='443359172470374400'), str(message.content)[6:]+"\n\nLes présents sont :")
             yield from client.add_reaction(message,'\u2705')
             yield from client.add_reaction(message,'\u274C')
         if message.content.startswith("!clean"):
             yield from client.delete_message(message)
-            yield from client.purge_from(discord.Object(id='456515389741072386'), limit=100, check=None, before=None, after=None, around=None)
-            an="**"+str(message.author)+"** a nettoyé le channel préparation-ccfn \U0001F5D1"
-            yield from client.send_message(discord.Object(id='456515271964753930'),an)
+            yield from client.purge_from(discord.Object(id='443906036701855757'), limit=100, check=None, before=None, after=None, around=None)
+            an="<@"+str(message.author.id)+"> a nettoyé le channel préparation-ccfn \U0001F5D1"
+            yield from client.send_message(discord.Object(id='441518062575943680'),an)
+        if message.content.startswith("!vote"):
+            Nb = 0
+            for x in client.get_all_members():
+                for r in x.roles:
+                    if r.name == 'Test Role':
+                        Nb = Nb+1
+                    if r.name == 'lol':
+                        Nb = Nb+1
+            yield from client.delete_message(message)
+            message = yield from client.send_message(discord.Object(id='442578879673270283'), str(message.content)[6:]+"\n\nRésultats :\n000 | 000 | 000 sur un total de "+str(Nb).zfill(3)+" voix")
+            yield from client.add_reaction(message,'\u2705')
+            yield from client.add_reaction(message,'\u274C')
+            yield from client.add_reaction(message,'\U0001F910')
+            
 
 @client.event
 @asyncio.coroutine
 def on_reaction_add(reaction,user):
-    if reaction.message.channel.id == '456515389741072386':
+    if reaction.message.channel.id == '443359172470374400':
         if "[P²]#4011" not in str(user):
             if str(reaction.emoji) == "✅":
                 if str(user) not in reaction.message.content:
-                    yield from client.edit_message(reaction.message, new_content=reaction.message.content+"\n-"+str(user)+" in")
+                    yield from client.edit_message(reaction.message, new_content=reaction.message.content+"\n-<@"+str(user.id)+">")
+    if reaction.message.channel.id == '442578879673270283':
+        if "[P²]#4011" not in str(user):
+            if str(reaction.emoji) == "✅":
+                ok = int(reaction.message.content[-40:-37])
+                ak = int(reaction.message.content[-8:-5])
+                for r in user.roles:
+                    if r.name == 'Test Role':
+                        ok = ok+1
+                    if r.name == 'lol':
+                        ok = ok+1
+                if ok > ak/2:
+                    yield from client.send_message(discord.Object(id='441518062575943680'),"**Une majorité a été obtenue** \u270C")
+                yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-40]+str(ok).zfill(3)+reaction.message.content[-37:])
+            if str(reaction.emoji) == "\u274C":
+                ok = int(reaction.message.content[-34:-31])
+                ak = int(reaction.message.content[-8:-5])
+                for r in user.roles:
+                    if r.name == 'Test Role':
+                        ok = ok+1
+                    if r.name == 'lol':
+                        ok = ok+1
+                if ok > ak/2:
+                    yield from client.send_message(discord.Object(id='441518062575943680'),"**Une majorité a été obtenue** \U0001F44E")
+                yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-34]+str(ok).zfill(3)+reaction.message.content[-31:])
+            if str(reaction.emoji) == "\U0001F910":
+                ok = int(reaction.message.content[-28:-25])
+                for r in user.roles:
+                    if r.name == 'Test Role':
+                        ok = ok+1
+                    if r.name == 'lol':
+                        ok = ok+1
+                yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-28]+str(ok).zfill(3)+reaction.message.content[-25:])
 
 @client.event
 @asyncio.coroutine
 def on_reaction_remove(reaction, user):
-    if reaction.message.channel.id == '456515389741072386':
+    if reaction.message.channel.id == '443359172470374400':
         if "[P²]#4011" not in str(user):
             if str(reaction.emoji) == "✅":
-                if "\n-"+str(user)+" in" in reaction.message.content:
+                if "\n-<@"+str(user.id)+">" in reaction.message.content:
                     lol = reaction.message.content
-                    an = lol.replace("\n-"+str(user)+" in", " ")
+                    an = lol.replace("\n-<@"+str(user.id)+">", " ")
                     yield from client.edit_message(reaction.message, new_content=an)
+    if reaction.message.channel.id == '442578879673270283':
+        if "[P²]#4011" not in str(user):
+            if str(reaction.emoji) == "✅":
+                ok = int(reaction.message.content[-40:-37])
+                for r in user.roles:
+                    if r.name == 'Test Role':
+                        ok = ok-1
+                    if r.name == 'lol':
+                        ok = ok-1
+                yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-40]+str(ok).zfill(3)+reaction.message.content[-37:])
+            if str(reaction.emoji) == "\u274C":
+                ok = int(reaction.message.content[-34:-31])
+                for r in user.roles:
+                    if r.name == 'Test Role':
+                        ok = ok-1
+                    if r.name == 'lol':
+                        ok = ok-1
+                yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-34]+str(ok).zfill(3)+reaction.message.content[-31:])
+            if str(reaction.emoji) == "\U0001F910":
+                ok = int(reaction.message.content[-28:-25])
+                for r in user.roles:
+                    if r.name == 'Test Role':
+                        ok = ok-1
+                    if r.name == 'lol':
+                        ok = ok-1
+                yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-28]+str(ok).zfill(3)+reaction.message.content[-25:])
+
 @client.event
 @asyncio.coroutine
 def on_voice_state_update(before,after):
     if before.voice_channel != after.voice_channel:
-        if after.voice_channel.id == '456057790579081220':
-            yield from client.send_message(discord.Object(id='456515271964753930'),"**"+str(after)+"** a besoin d'un @Admin \U0001F198")
- 
+        if after.voice_channel.id == '436860873882075151':
+            yield from client.send_message(discord.Object(id='441518062575943680'),"<@"+str(after.id)+"> a besoin d'un @Admin \U0001F198")
+
+
 @client.event
 @asyncio.coroutine
-def on_ready():  
+def on_ready():
     print("Ready")
 
 client.run(os.environ['TOKEN'])
