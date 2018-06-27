@@ -25,9 +25,11 @@ def on_message(message):
             Nb = 0
             for x in client.get_all_members():
                 for r in x.roles:
-                    if r.name == 'Test Role':
+                    if r.name == 'Membres':
                         Nb = Nb+1
-                    if r.name == 'lol':
+                    if r.name == 'Ancien':
+                        Nb = Nb+1
+                    if r.name == 'Admin':
                         Nb = Nb+1
             yield from client.delete_message(message)
             message = yield from client.send_message(discord.Object(id='442578879673270283'), str(message.content)[6:]+"\n\nRésultats :\n000 | 000 | 000 sur un total de "+str(Nb).zfill(3)+" voix")
@@ -50,9 +52,11 @@ def on_reaction_add(reaction,user):
                 ok = int(reaction.message.content[-40:-37])
                 ak = int(reaction.message.content[-8:-5])
                 for r in user.roles:
-                    if r.name == 'Test Role':
+                    if r.name == 'Membres':
                         ok = ok+1
-                    if r.name == 'lol':
+                    if r.name == 'Ancien':
+                        ok = ok+1
+                    if r.name == 'Admin':
                         ok = ok+1
                 if ok > ak/2:
                     yield from client.send_message(discord.Object(id='441518062575943680'),"**Une majorité a été obtenue** \u270C")
@@ -61,9 +65,11 @@ def on_reaction_add(reaction,user):
                 ok = int(reaction.message.content[-34:-31])
                 ak = int(reaction.message.content[-8:-5])
                 for r in user.roles:
-                    if r.name == 'Test Role':
+                    if r.name == 'Membres':
                         ok = ok+1
-                    if r.name == 'lol':
+                    if r.name == 'Ancien':
+                        ok = ok+1
+                    if r.name == 'Admin':
                         ok = ok+1
                 if ok > ak/2:
                     yield from client.send_message(discord.Object(id='441518062575943680'),"**Une majorité a été obtenue** \U0001F44E")
@@ -71,9 +77,11 @@ def on_reaction_add(reaction,user):
             if str(reaction.emoji) == "\U0001F910":
                 ok = int(reaction.message.content[-28:-25])
                 for r in user.roles:
-                    if r.name == 'Test Role':
+                    if r.name == 'Membres':
                         ok = ok+1
-                    if r.name == 'lol':
+                    if r.name == 'Ancien':
+                        ok = ok+1
+                    if r.name == 'Admin':
                         ok = ok+1
                 yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-28]+str(ok).zfill(3)+reaction.message.content[-25:])
 
@@ -92,25 +100,31 @@ def on_reaction_remove(reaction, user):
             if str(reaction.emoji) == "✅":
                 ok = int(reaction.message.content[-40:-37])
                 for r in user.roles:
-                    if r.name == 'Test Role':
+                    if r.name == 'Membres':
                         ok = ok-1
-                    if r.name == 'lol':
+                    if r.name == 'Ancien':
+                        ok = ok-1
+                    if r.name == 'Admin':
                         ok = ok-1
                 yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-40]+str(ok).zfill(3)+reaction.message.content[-37:])
             if str(reaction.emoji) == "\u274C":
                 ok = int(reaction.message.content[-34:-31])
                 for r in user.roles:
-                    if r.name == 'Test Role':
+                    if r.name == 'Membres':
                         ok = ok-1
-                    if r.name == 'lol':
+                    if r.name == 'Ancien':
+                        ok = ok-1
+                    if r.name == 'Admin':
                         ok = ok-1
                 yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-34]+str(ok).zfill(3)+reaction.message.content[-31:])
             if str(reaction.emoji) == "\U0001F910":
                 ok = int(reaction.message.content[-28:-25])
                 for r in user.roles:
-                    if r.name == 'Test Role':
+                    if r.name == 'Membres':
                         ok = ok-1
-                    if r.name == 'lol':
+                    if r.name == 'Ancien':
+                        ok = ok-1
+                    if r.name == 'Admin':
                         ok = ok-1
                 yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-28]+str(ok).zfill(3)+reaction.message.content[-25:])
 
