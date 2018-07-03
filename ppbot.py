@@ -7,6 +7,14 @@ client = discord.Client()
 
 @client.event
 @asyncio.coroutine
+async def fetch_logs(channel):
+    List = []
+    async for log in client.logs_from(channel,limit=500):
+        List.append(log)
+    return List
+
+@client.event
+@asyncio.coroutine
 def on_message(message):
     if message.author == client.user:
         return
@@ -139,6 +147,12 @@ def on_voice_state_update(before,after):
 @client.event
 @asyncio.coroutine
 def on_ready():
+    old1 = yield from client.fetch_logs(discord.Object(id='443359172470374400'))
+    for x in old1:
+        client.messages.append(x)
+    old2 = yield from client.fetch_logs(discord.Object(id='442578879673270283'))
+    for x in old2:
+        client.messages.append(x)
     print("Ready")
 
 client.run(os.environ['TOKEN'])
