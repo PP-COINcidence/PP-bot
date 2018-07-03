@@ -68,7 +68,7 @@ def on_reaction_add(reaction,user):
                             ok = ok+1
                         if r.name == 'Admin':
                             ok = ok+1
-                    if ok > ak/2:
+                    if ok > ak/2 and ok <= ak/2 + 3:
                         yield from client.send_message(discord.Object(id='441518062575943680'),"**Une majorité a été obtenue** \u270C")
                     yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-40]+str(ok).zfill(3)+reaction.message.content[-37:])
                 if str(reaction.emoji) == "\u274C":
@@ -81,7 +81,7 @@ def on_reaction_add(reaction,user):
                             ok = ok+1
                         if r.name == 'Admin':
                             ok = ok+1
-                    if ok > ak/2:
+                    if ok > ak/2 and ok <= ak/2 + 3:
                         yield from client.send_message(discord.Object(id='441518062575943680'),"**Une majorité a été obtenue** \U0001F44E")
                     yield from client.edit_message(reaction.message, new_content=reaction.message.content[:-34]+str(ok).zfill(3)+reaction.message.content[-31:])
                 if str(reaction.emoji) == "\U0001F910":
