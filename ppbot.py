@@ -30,6 +30,7 @@ def on_message(message):
             yield from client.add_reaction(message,'\u2705')
             yield from client.add_reaction(message,'\u274C')
         if message.content.startswith("!msg"):
+            yield from client.delete_message(message)
             for r in message.channel_mentions:
                 yield from client.send_message(r, message.content[26:])
         if message.content.startswith("!clean"):
