@@ -24,6 +24,14 @@ def on_message(message):
             message = yield from client.send_message(discord.Object(id='443359172470374400'), str(message.content)[6:]+"\n\nLes présents sont :")
             yield from client.add_reaction(message,'\u2705')
             yield from client.add_reaction(message,'\u274C')
+        if message.content.startswith("!last"):
+            yield from client.delete_message(message)
+            message = yield from client.send_message(discord.Object(id='484640273960402951'), str(message.content)[6:]+"\n\nLes présents sont :")
+            yield from client.add_reaction(message,'\u2705')
+            yield from client.add_reaction(message,'\u274C')
+        if message.content.startswith("!msg"):
+            for r in message.channel_mentions:
+                yield from client.send_message(r, message.content[26:])
         if message.content.startswith("!clean"):
             yield from client.delete_message(message)
             yield from client.purge_from(discord.Object(id='443906036701855757'), limit=100, check=None, before=None, after=None, around=None)
@@ -55,6 +63,12 @@ def on_reaction_add(reaction,user):
                 if str(reaction.emoji) == "✅":
                     if str(user) not in reaction.message.content:
                         yield from client.edit_message(reaction.message, new_content=reaction.message.content+"\n-<@"+str(user.id)+">")
+    if reaction.message.channel.id == '484640273960402951':
+        if reaction.message.author.id == "458596694796402700":
+            if "[P²]#4011" not in str(user):
+                if str(reaction.emoji) == "✅":
+                    if str(user) not in reaction.message.content:
+                        yield from client.edit_message(reaction.message, new_content=reaction.message.content+"\n-<@"+str(user.id)+">")                    
     if reaction.message.channel.id == '442578879673270283':
         if reaction.message.author.id == "458596694796402700":
             if "[P²]#4011" not in str(user):
@@ -106,6 +120,14 @@ def on_reaction_remove(reaction, user):
                         lol = reaction.message.content
                         an = lol.replace("\n-<@"+str(user.id)+">", " ")
                         yield from client.edit_message(reaction.message, new_content=an)
+    if reaction.message.channel.id == '484640273960402951':
+        if reaction.message.author.id == "458596694796402700":
+            if "[P²]#4011" not in str(user):
+                if str(reaction.emoji) == "✅":
+                    if "\n-<@"+str(user.id)+">" in reaction.message.content:
+                        lol = reaction.message.content
+                        an = lol.replace("\n-<@"+str(user.id)+">", " ")
+                        yield from client.edit_message(reaction.message, new_content=an)                    
     if reaction.message.channel.id == '442578879673270283':
         if reaction.message.author.id == "458596694796402700":
             if "[P²]#4011" not in str(user):
