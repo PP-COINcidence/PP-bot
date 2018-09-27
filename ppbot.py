@@ -180,6 +180,9 @@ def on_ready():
     old2 = yield from client.fetch_logs(discord.Object(id='442578879673270283'))
     for x in old2:
         client.messages.append(x)
+    old3 = yield from client.fetch_logs(discord.Object(id='484640273960402951'))
+    for x in old3:
+        client.messages.append(x)
     print("Ready")
 
 client.run(os.environ['TOKEN'])
