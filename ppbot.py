@@ -15,6 +15,11 @@ async def fetch_logs(channel):
 
 @client.event
 @asyncio.coroutine
+def on_member_remove(member):
+    yield from client.send_message(member.server.default_channel, "<@"+str(member.id)+"> a quitté le serveur."
+
+@client.event
+@asyncio.coroutine
 def on_message(message):
     if message.author == client.user:
         return
