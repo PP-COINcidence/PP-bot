@@ -15,11 +15,6 @@ async def fetch_logs(channel):
 
 @client.event
 @asyncio.coroutine
-def on_member_remove(member):
-    yield from client.send_message(member.server.default_channel, "<@"+str(member.id)+"> a quitté le serveur."
-
-@client.event
-@asyncio.coroutine
 def on_message(message):
     if message.author == client.user:
         return
@@ -180,6 +175,10 @@ def on_voice_state_update(before,after):
         if after.voice_channel.id == '436860873882075151':
             yield from client.send_message(discord.Object(id='441518062575943680'),"<@"+str(after.id)+"> a besoin d'un <@&440560633696616459> \U0001F198")
 
+@client.event
+@asyncio.coroutine
+def on_member_remove(member):
+    yield from client.send_message(member.server.default_channel, "<@"+str(member.id)+"> a quitté le serveur."
 
 @client.event
 @asyncio.coroutine
