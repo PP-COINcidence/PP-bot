@@ -178,7 +178,7 @@ def on_voice_state_update(before,after):
 @client.event
 @asyncio.coroutine
 def on_member_remove(member):
-    yield from client.send_message(default_channel, "<@"+str(member.id)+"> a quitté le serveur.")
+    yield from client.send_message(server.default_channel, "<@"+str(member.id)+"> a quitté le serveur.")
 
 @client.event
 @asyncio.coroutine
