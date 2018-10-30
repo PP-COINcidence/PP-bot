@@ -177,9 +177,15 @@ def on_voice_state_update(before,after):
 
 @client.event
 @asyncio.coroutine
+def on_member_join(member):
+    if member.server.id == '501722285342851072':
+        yield from client.add_roles(str(member), 'squadies')
+
+@client.event
+@asyncio.coroutine
 def on_member_remove(member):
     if member.server.id == '436860873882075147':
-        yield from client.send_message(discord.Object(id='436862841233080322'), member.nick+" a quitté le serveur.")
+        yield from client.send_message(discord.Object(id='436862841233080322'), "<@"+str(member.id)+" a quitté le serveur.")
 
 @client.event
 @asyncio.coroutine
