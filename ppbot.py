@@ -178,9 +178,8 @@ def on_voice_state_update(before,after):
 @client.event
 @asyncio.coroutine
 def on_member_remove(member):
-    for w in member.server.channels:
-        if w.name == 'welcome':
-            yield from client.send_message(w, "<@"+str(member.id)+"> a quitté le serveur.")
+    if member.server.id == '436860873882075147':
+        yield from client.send_message(discord.Object(id='436862841233080322'), member.nick+" a quitté le serveur.")
 
 @client.event
 @asyncio.coroutine
