@@ -18,7 +18,7 @@ async def fetch_logs(channel):
 def on_message(message):
     if message.author == client.user:
         return
-    if message.channel.id == '503121691157725184':
+    if message.channel.id == '504895992550653952':
         if message.content.startswith("!msg"):
             yield from client.delete_message(message)
             for r in message.channel_mentions:
