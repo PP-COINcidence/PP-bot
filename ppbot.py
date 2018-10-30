@@ -23,7 +23,6 @@ def on_message(message):
             yield from client.delete_message(message)
             for r in message.channel_mentions:
                 yield from client.send_message(r, message.content[26:])
-                yield from client.send_message(r, message.attachments)
     if message.channel.id == '441518062575943680':
         if message.content.startswith("!dispo"):
             yield from client.delete_message(message)
