@@ -186,7 +186,7 @@ def on_member_join(member):
 @asyncio.coroutine
 def on_member_remove(member):
     if member.server.id == '436860873882075147':
-        yield from client.send_message(discord.Object(id='436862841233080322'), str(member.nick)+" a quitté le serveur.")
+        yield from client.send_message(discord.Object(id='436862841233080322'), str(member.name)+" a quitté le serveur.")
 
 @client.event
 @asyncio.coroutine
