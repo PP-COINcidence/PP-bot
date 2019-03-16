@@ -179,7 +179,7 @@ def on_voice_state_update(before,after):
 @asyncio.coroutine
 def on_member_join(member):
     if member.server.id == '501722285342851072':
-        role = discord.utils.get(member.server.roles, name="Squadies")
+        role = discord.utils.get(member.server.roles, name="Squaddies")
         yield from client.add_roles(member, role)
 
 @client.event
